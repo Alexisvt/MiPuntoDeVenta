@@ -1,0 +1,48 @@
+name: Change request
+description: Proponer y aprobar trabajo antes de abrir un pull request.
+title: "feat(scope): "
+labels: ["enhancement", "status:needs-review"]
+body:
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Verificación previa
+      options:
+        - label: Busqué solicitudes existentes y esta no es un duplicado.
+          required: true
+        - label: Entiendo que el cambio necesita `status:approved` antes del PR.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema u oportunidad
+      description: Explicá el impacto actual y quién lo experimenta.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Resultado esperado
+      description: Describí comportamiento observable y criterios de aceptación.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Alcance y exclusiones
+      description: Incluí lo que debe cambiar y lo que queda explícitamente afuera.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Riesgos y dependencias
+      description: Datos, seguridad, compatibilidad, operación, terceros o N/A.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Referencias
+      description: Specs, ADRs, diseños, capturas o conversaciones relevantes.
+
