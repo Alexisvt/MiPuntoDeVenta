@@ -2,7 +2,7 @@ change: mvp-pos-simple
 mode: hybrid
 execution_mode: interactive
 delivery_strategy: ask-on-risk
-status: foundation-applied-ready-for-verification
+status: foundation-complete-ready-for-access-inventory
 completed:
   - explore
   - proposal
