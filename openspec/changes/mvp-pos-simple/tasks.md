@@ -4,55 +4,53 @@
 
 | Field | Value |
 |---|---|
-| Estimated changed lines | 1,800–3,000 |
+| Estimated changed lines | 2,400–3,600 |
 | 400-line budget risk | High |
 | Chained PRs recommended | Yes |
-| Suggested split | Foundation → acceso/inventario → venta/caja → impresión/UI |
 | Delivery strategy | ask-on-risk |
 | Chain strategy | feature-branch-chain |
 
-Decision needed before apply: Yes
+Decision needed before apply: No
 Chained PRs recommended: Yes
 Chain strategy: feature-branch-chain
 400-line budget risk: High
 
 ### Suggested Work Units
 
-| Unit | Goal | Likely PR | Notes |
-|---|---|---|---|
-| 1 | Stack, modelo y base accesible | PR 1 | Base = feature/tracker branch; sin funcionalidad comercial. |
-| 2 | Acceso e inventario | PR 2 | Base = PR 1 branch; roles, productos y stock. |
-| 3 | Venta y caja | PR 3 | Base = PR 2 branch; recorrido operativo completo. |
-| 4 | Impresión, accesibilidad y piloto | PR 4 | Base = PR 3 branch; hardware adaptado y flujos E2E. |
+| Unit | Goal | PR boundary |
+|---|---|---|
+| 1 | Angular/Spring foundation and delivery contracts | feature/tracker → `feat/mvp-foundation` |
+| 2 | Access and inventory | foundation → `feat/mvp-access-inventory` |
+| 3 | Sales and cash | access/inventory → `feat/mvp-sales-cash` |
+| 4 | Printing, accessibility and AWS release | sales/cash → `feat/mvp-printing-release` |
 
-## Phase 1: Foundation
+## Phase 1: Enterprise Foundation
 
-- [x] 1.1 Confirmar Costa Rica, recibo interno no fiscal, pagos MVP, exclusiones y Epson TM-T20II con gaveta 3nstar.
-- [ ] 1.2 Configurar Next.js/TypeScript, SQLite/Prisma, autenticación y despliegue local; actualizar `openspec/config.yaml`.
-- [ ] 1.3 Crear estructura modular `src/modules/{access,inventory,sales,cash,printing}/` y contratos de dominio.
-- [ ] 1.4 Crear esquema de datos para usuarios/roles, productos, stock, ventas, líneas y sesiones de caja.
-- [ ] 1.5 Establecer runner de pruebas, lint, tipos y pruebas de accesibilidad; habilitar TDD.
+- [x] 1.1 Confirm Costa Rica, internal non-fiscal receipt, payments, exclusions and Epson TM-T20II/3nstar.
+- [x] 1.2 Bootstrap Angular 22 in `frontend/` with strict TypeScript, tests, lint and accessibility baseline.
+- [x] 1.3 Bootstrap Spring Boot 4.1 in `backend/` with Maven, Java 21, actuator, validation and JUnit.
+- [x] 1.4 Create modular package boundaries for access, inventory, sales, cash and printing.
+- [x] 1.5 Add PostgreSQL/Flyway configuration, a local profile and first schema migration.
+- [x] 1.6 Define AWS contracts in `infra/`: VPC inputs, RDS, ECS task, ALB, S3/CloudFront, IAM and secrets placeholders.
+- [x] 1.7 RED/GREEN: prove a backend health endpoint and an Angular health view.
+- [x] 1.8 Document local setup, architecture and non-fiscal receipt boundary in `README.md`.
 
 ## Phase 2: Access and Inventory
 
-- [ ] 2.1 RED: probar inicio de sesión y autorización por rol según `user-access`.
-- [ ] 2.2 GREEN: implementar sesión, usuarios, roles y estados de usuario en `src/modules/access/`.
-- [ ] 2.3 RED/GREEN: implementar productos activos/inactivos y stock insuficiente en `src/modules/inventory/`.
-- [ ] 2.4 Crear pantallas de usuarios y productos con foco visible, teclado, estados vacíos y error.
+- [ ] 2.1 RED/GREEN: implement users, roles, authentication and authorization.
+- [ ] 2.2 RED/GREEN: implement active products, stock tracking and insufficient-stock rejection.
+- [ ] 2.3 Build accessible Angular user/product flows with empty, error and keyboard states.
 
 ## Phase 3: Sales and Cash
 
-- [ ] 3.1 RED/GREEN: implementar apertura única, cierre y transiciones de `CashSession`.
-- [ ] 3.2 RED/GREEN: implementar venta con líneas, totales, pago y asociación obligatoria a caja/operador.
-- [ ] 3.3 Integrar descuento de inventario atómico al completar una venta.
-- [ ] 3.4 Construir POS de dos zonas, ticket anclado, búsqueda y cobro rápido sin navegación extra.
-- [ ] 3.5 Crear vista lineal de apertura/cierre con resumen verificable y confirmación de acciones irreversibles.
+- [ ] 3.1 RED/GREEN: implement single active cash session and close transitions.
+- [ ] 3.2 RED/GREEN: implement a completed sale with the four allowed payment methods.
+- [ ] 3.3 Make stock decrement and sale completion transactional.
+- [ ] 3.4 Build the two-zone POS and linear opening/close flows with Impeccable.
 
-## Phase 4: Printing and Validation
+## Phase 4: Printing and Release
 
-- [ ] 4.1 Definir `ReceiptPrinter` y adaptadores para navegador/simulador y el protocolo de impresora confirmado.
-- [ ] 4.2 Renderizar recibos de venta/cierre, persistir reintentos y comunicar fallas de impresión.
-- [ ] 4.3 E2E: apertura → venta → impresión → cierre con impresora simulada.
-- [ ] 4.4 Auditar WCAG 2.2 AA, teclado, foco, contraste, movimientos reducidos y estados de error.
-- [ ] 4.5 Pilotear con el negocio, registrar fricción y archivar decisiones de alcance.
-
+- [ ] 4.1 Define internal-receipt and printer contracts; retain failed print retries.
+- [ ] 4.2 Integrate browser/driver printing for the Epson and verify drawer behavior on site.
+- [ ] 4.3 Add Playwright/axe journeys and AWS deployment pipeline.
+- [ ] 4.4 Pilot with the business and record operational feedback.

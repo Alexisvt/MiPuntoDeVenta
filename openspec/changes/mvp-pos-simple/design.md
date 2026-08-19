@@ -1,78 +1,62 @@
 # Design: MVP de punto de venta simple
 
 ## Technical Approach
-Implementar un monolito modular organizado por capacidades: acceso, inventario, venta, caja e impresión. La aplicación prioriza el recorrido operativo: iniciar sesión → abrir caja → vender → imprimir → cerrar caja. El stack, persistencia concreta y protocolo de impresora se decidirán antes de aplicar tareas.
+Un monolito modular desplegable como un solo servicio Spring Boot 4.1. Angular 22 consume una API REST versionada. PostgreSQL reside en Amazon RDS; el backend se empaqueta como contenedor para ECS Fargate detrás de un ALB. El frontend se publica como sitio estático en S3/CloudFront.
 
 ## Architecture Decisions
 
-| Decision | Choice | Alternatives | Rationale |
-|---|---|---|---|
-| Límites de dominio | Módulos por capacidad con contratos explícitos | Pantallas acopladas a una base de datos | Las reglas de venta, caja e inventario deben cambiar sin contagiar el resto. |
-| Caja como contexto | Toda venta exige una caja abierta | Venta independiente de la caja | Hace auditables la jornada, el operador y los totales de cierre. |
-| Impresión MVP | Impresión desde navegador/SO mediante el driver Epson configurado | Pulsos ESC/POS directos desde la UI | Mantiene el recibo interno desacoplado y aprovecha el flujo existente que abre la gaveta 3nstar al imprimir. |
-| Experiencia UI | Superficie de producto clara, ágil y confiable | Replicar menú existente | Reduce carga cognitiva y capacitación del personal rotativo. |
-| Accesibilidad | WCAG 2.2 AA y operación por teclado | Accesibilidad como mejora posterior | La velocidad y el foco visible benefician a cada cajero, no solo a casos especiales. |
-
-## Compliance Boundary
-El documento de venta será un **recibo interno no fiscal**. Cuando el cliente solicite factura legal, el negocio la emitirá manualmente en su talonario; Hacienda y facturación electrónica quedan fuera del MVP.
-
-## Data Flow
-
-    Usuario autenticado
-        ↓
-    Caja abierta ─→ POS ─→ Venta completada ─→ Recibo
-        │              │          │
-        └──────────────┴──────→ Inventario
-        ↓
-    Cierre diario ────────────→ Resumen impreso
-
-Cada operación persistirá actor, marca de tiempo y referencia de caja. Un fallo de impresión NO revierte una venta ni un cierre: conserva un documento reintentable.
-
-## Product UI Direction
-**Escena**: un cajero trabaja bajo iluminación fuerte de mostrador, con fila y presión de tiempo; por eso la interfaz será clara de tema claro, alto contraste y una sola acción primaria por pantalla.
-
-- Estrategia cromática **restrained**: neutros ligeramente cálidos y un acento solo para acción actual, selección y estado.
-- App shell mínima: encabezado con usuario/caja, navegación visible solo para capacidades autorizadas.
-- POS en dos zonas, catálogo/búsqueda y ticket actual; total y cobro siempre anclados, sin tarjetas decorativas.
-- Caja y cierre como pasos lineales con resumen verificable; las confirmaciones irreversibles son explícitas e inline cuando sea posible.
-- Estados obligatorios: carga, catálogo vacío, producto agotado, sin caja abierta, impresión fallida/reintento, acceso denegado y cierre exitoso.
-- Teclado, foco visible, contraste AA, mensajes que no dependan solo del color y movimiento funcional de 150–250 ms.
-
-## Planned File Changes
-
-| Area | Action | Description |
+| Decision | Choice | Rationale |
 |---|---|---|
-| `src/modules/access/` | Create | Sesión, roles y autorización. |
-| `src/modules/inventory/` | Create | Productos y existencias. |
-| `src/modules/sales/` | Create | Venta, líneas y totales. |
-| `src/modules/cash/` | Create | Apertura, jornada y cierre. |
-| `src/modules/printing/` | Create | Contrato de recibos y adaptadores POS. |
-| `src/app/` | Create | Flujos/pantallas accesibles y navegación mínima. |
-| `tests/` | Create | Pruebas de reglas críticas y recorridos. |
+| Forma | Monolito modular | Un negocio y un MVP no justifican microservicios; los módulos preservan límites para extraerlos después si hiciera falta. |
+| Backend | Spring Boot 4.1, Java, REST | Ecosistema enterprise, pruebas maduras y excelente integración con seguridad, observabilidad y JPA. |
+| Frontend | Angular 22 por features | UI empresarial consistente, tipado y formularios robustos. Impeccable se aplicará al diseñar cada flujo visual. |
+| Datos | PostgreSQL en RDS | Transacciones ACID para stock, venta y caja; operación administrada. |
+| Infraestructura | ECS Fargate + ALB | Contenedor sin administrar hosts; health checks y despliegues reproducibles. |
+| Recibo | Documento interno no fiscal | No integra Hacienda; la factura legal se emite fuera del sistema, en talonario. |
+| Impresión | Adaptador del navegador/driver Epson | El MVP reutiliza el flujo instalado para Epson TM-T20II y gaveta 3nstar; ESC/POS directo queda aislado para después. |
 
-Estas rutas son un blueprint, no una elección de framework.
+## Module Boundaries
 
-## Interfaces / Contracts
+    frontend/ Angular
+       ↓ REST /api/v1
+    backend/ Spring Boot
+    ├── access       users, roles, authentication
+    ├── inventory    products, stock
+    ├── sales        sale composition and payment
+    ├── cash         opening, active session, daily close
+    └── printing     receipt documents and print status
+       ↓
+    PostgreSQL / Amazon RDS
 
-- **Sale**: id, cashSessionId, operatorId, lines, total, paymentMethod, completedAt.
-- **CashSession**: id, openedBy, openedAt, openingAmount, closedBy?, closedAt?, totals.
-- **ReceiptPrinter**: recibe un documento de venta o cierre y devuelve resultado imprimible/reintentable.
-- **Authorization**: evalúa acción y rol antes de exponer o ejecutar operación.
+A sale is committed only when its cash session, actor, lines, payment and stock update succeed transactionally. A printing failure MUST create a retryable receipt status and MUST NOT reverse the sale.
+
+## Backend Structure
+
+| Path | Responsibility |
+|---|---|
+| `backend/src/main/java/.../shared/` | domain primitives, errors, security contracts |
+| `backend/src/main/java/.../{module}/domain/` | entities and business rules |
+| `backend/src/main/java/.../{module}/application/` | use cases and transactions |
+| `backend/src/main/java/.../{module}/infrastructure/` | JPA, REST adapters and external services |
+| `backend/src/test/java/` | unit and integration tests |
+| `frontend/src/app/features/` | Angular features by business module |
+| `infra/` | ECS, RDS, network, IAM and deployment definitions |
+
+## Frontend Direction
+Impeccable governs frontend design. The primary scene is a cashier under bright counter lighting and time pressure: light theme, warm neutrals, high contrast, one primary action per screen, keyboard-first operation and WCAG 2.2 AA. The POS keeps catalog/search and current ticket visible simultaneously; it never mirrors the overloaded legacy menu.
 
 ## Testing Strategy
 
-| Layer | What to Test | Approach |
-|---|---|---|
-| Unit | Totales, stock, permisos y transición de caja | Pruebas deterministas de dominio. |
-| Integration | Venta actualiza inventario y caja | Persistencia real o equivalente controlado. |
-| E2E | Apertura → venta → cierre | Flujo de operador con impresora simulada. |
-| Accessibility | Foco, teclado, contraste y mensajes | Auditoría automatizada y revisión manual. |
+| Layer | Scope |
+|---|---|
+| JUnit | domain rules: permissions, stock, totals and cash transitions |
+| Spring integration | JPA transactions, REST authorization and receipt status |
+| Angular | feature/component behavior and accessibility states |
+| Playwright + axe | opening → sale → receipt → close, keyboard and WCAG checks |
 
-## Migration / Rollout
-No existe sistema propio a migrar. Pilotear primero con el negocio amigo y datos de prueba; importar productos solo después de definir formato de origen.
+## Delivery
+PR #1 creates the Angular/Spring foundation, test runners, module skeleton and AWS infrastructure contracts. Later PRs target the immediately preceding feature branch.
 
 ## Open Questions
-- [ ] ¿En qué país operará y qué obligaciones fiscales/factura electrónica existen?
-- [ ] Métodos MVP confirmados: efectivo, tarjeta, SINPE y transferencia; devoluciones/descuentos excluidos.
-- [ ] Epson TM-T20II y gaveta 3nstar confirmadas; falta verificar la interfaz física/configuración del driver.
-- [ ] Stack elegido: Next.js + TypeScript + SQLite/Prisma; falta validar el modo de despliegue local en sitio.
+- Confirm the physical interface and Windows/driver setup of the Epson/3nstar station before production printing.
+- Define AWS account, region, domain, secrets strategy and budget before provisioned deployment.

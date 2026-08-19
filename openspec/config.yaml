@@ -1,20 +1,12 @@
-# SDD configuration for MiPuntoDeVenta
 schema: spec-driven
 
 context: |
-  Tech stack: not initialized
-  Architecture: pending SDD design
-  Testing: no runner detected
-  Style: no project conventions detected
+  Stack: Angular 22 frontend, Spring Boot 4.1 Java API, PostgreSQL on Amazon RDS
+  Architecture: modular monolith with REST API; Angular static site served via S3/CloudFront
+  Deployment: Spring Boot container on ECS Fargate behind an ALB
+  Testing: Maven/JUnit for backend; Angular test runner and Playwright for frontend
 
-strict_tdd: false
-
-testing:
-  test_runner: null
-  unit: false
-  integration: false
-  e2e: false
-  coverage: false
+strict_tdd: true
 
 rules:
   specs:
