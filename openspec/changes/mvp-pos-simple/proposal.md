@@ -1,62 +1,72 @@
-# Proposal: MVP de punto de venta simple
+# Proposal: Focused Point-of-Sale MVP
 
 ## Intent
-Reemplazar el uso cotidiano del sistema actual por una herramienta mucho más simple para registrar ventas de un negocio pequeño. El valor no es “tener módulos”: es completar una jornada de ventas sin fricción.
+
+Replace the small business's daily use of its current system with a substantially simpler sales tool. The value is not the number of modules; it is completing a sales day without friction.
 
 ## Scope
 
-### In Scope
-- Autenticación y administración básica de usuarios con roles.
-- Catálogo e inventario de productos.
-- Punto de venta: buscar/agregar productos, cobrar y emitir comprobante.
-- Caja: apertura, cierre diario y resumen imprimible.
-- Impresión de recibo interno no fiscal y cierre en impresora térmica POS.
+### In scope
 
-### Out of Scope
-- Replicar el menú o módulos no usados del sistema actual.
-- Contabilidad, CRM, nómina, compras complejas, analítica avanzada y multi-sucursal.
-- Facturación electrónica/Hacienda, facturas fiscales, devoluciones y descuentos.
-- Decidir stack, proveedor de impresión o despliegue sin relevamiento técnico.
+- Authentication and basic role-based user administration.
+- Product catalog and inventory.
+- Point of sale: find and add products, collect payment, and issue a receipt.
+- Cash management: opening, daily close, and printable summary.
+- Internal non-fiscal sales receipts and cash-close reports on a thermal POS printer.
+
+### Out of scope
+
+- Reproducing the legacy menu or unused modules.
+- Accounting, CRM, payroll, complex purchasing, advanced analytics, and multiple locations.
+- Costa Rican electronic invoicing or Hacienda integration, fiscal invoices, returns, and discounts.
+- Selecting a printing provider or deployment approach without validating the operating environment.
 
 ## Capabilities
 
-### New Capabilities
-- `user-access`: acceso y roles para operadores y administradores.
-- `inventory-catalog`: productos y existencias disponibles para vender.
-- `point-of-sale`: registro y cobro de ventas.
-- `cash-day-close`: apertura, cierre y resumen de jornada.
-- `thermal-printing`: recibos internos no fiscales y cierres imprimibles en formato POS.
+### New capabilities
 
-### Modified Capabilities
-- None — no existen specs base.
+- `user-access`: access and roles for operators and administrators.
+- `inventory-catalog`: products and stock available for sale.
+- `point-of-sale`: sale registration and payment.
+- `cash-day-close`: cash opening, closing, and session summary.
+- `thermal-printing`: POS-formatted internal non-fiscal receipts and close reports.
+
+### Modified capabilities
+
+None — no baseline specifications exist.
 
 ## Approach
-Diseñar un monolito modular con navegación reducida a los flujos usados. Primero definir reglas y contratos de dominio independientes de tecnología; luego seleccionar stack e integración de impresión compatible con el hardware real.
 
-## Affected Areas
+Build a modular monolith with navigation limited to the workflows the business actually uses. Define technology-independent domain rules and contracts first, then implement the selected stack and a printing adapter compatible with the validated hardware.
+
+## Affected areas
+
 | Area | Impact | Description |
 |---|---|---|
-| `openspec/specs/` | New | Especificaciones de las cinco capacidades. |
-| Aplicación aún no inicializada | New | Implementación posterior al diseño y tareas. |
-| Impresora POS | External dependency | Requiere modelo, conexión y protocolo. |
+| `openspec/changes/mvp-pos-simple/specs/` | New | Specifications for the five capabilities. |
+| Application | New | Angular frontend and Spring Boot backend implemented in reviewable slices. |
+| POS printer | External dependency | Epson TM-T20II and 3nstar cash-drawer behavior require on-site validation. |
 
 ## Risks
+
 | Risk | Likelihood | Mitigation |
 |---|---|---|
-| Confundir recibo interno con factura fiscal | High | Etiquetar el documento como no fiscal; la factura solicitada se emite manualmente. |
-| Hardware no compatible | Medium | Probar con modelo real y definir un adaptador de impresión. |
-| Alcance crece como sistema anterior | High | Mantener fuera de alcance módulos no usados y validar cada incremento. |
+| Internal receipt is mistaken for a fiscal invoice | High | Mark the document as non-fiscal; requested legal invoices remain manual. |
+| Hardware workflow is incompatible | Medium | Test the physical station and isolate printing behind an adapter. |
+| Scope grows to resemble the legacy system | High | Keep unused modules out of scope and validate every increment with the business. |
 
-## Rollback Plan
-El cambio es solo de planificación. Si se invalida, se elimina/archiva `mvp-pos-simple` sin afectar código productivo.
+## Rollback plan
+
+This proposal establishes product scope. If invalidated, archive the `mvp-pos-simple` change without changing production behavior.
 
 ## Dependencies
-- Validación del dueño del negocio sobre procesos, roles y reglas.
-- Epson TM-T20II, gaveta 3nstar y validación de la interfaz/conexión instalada.
 
-## Success Criteria
-- [ ] Una persona operadora puede completar apertura → venta → cierre sin usar módulos extra.
-- [ ] Los roles restringen las acciones administrativas definidas.
-- [ ] Venta y cierre producen una salida apta para la impresora POS confirmada.
-- [ ] El alcance MVP queda aprobado antes de iniciar implementación.
+- Business-owner validation of workflows, roles, and operating rules.
+- Epson TM-T20II, 3nstar cash drawer, and validation of the installed interface and driver.
 
+## Success criteria
+
+- [ ] An operator can complete opening → sale → close without using unrelated modules.
+- [ ] Roles restrict the defined administrative actions.
+- [ ] Sales and cash closing produce output suitable for the confirmed POS printer.
+- [ ] MVP scope is approved before feature implementation begins.

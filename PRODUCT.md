@@ -1,28 +1,29 @@
-# Product
-
-## Register
-
-product
+# Product direction
 
 ## Users
-Cajeros y administradores de un negocio pequeño, principalmente en una computadora de mostrador. El personal puede rotar, por lo que debe aprender la operación sin entrenamiento extenso. La tarea primaria es completar apertura, venta y cierre con seguridad y rapidez.
 
-## Product Purpose
-Registrar ventas e inventario y cerrar la caja diaria con el mínimo de fricción. El éxito es que una persona nueva pueda cobrar y cerrar su jornada sin navegar módulos irrelevantes.
+Cashiers and administrators at a small business, working primarily from a checkout computer. Staff turnover can be frequent, so people must learn the workflow without extensive training. Their primary job is to open the register, complete sales, and close the business day safely and quickly.
 
-## Brand Personality
-Claro, ágil y confiable. Referencias funcionales: Square POS para una caja directa, Stripe para formularios precisos y Linear para jerarquía sobria y densa cuando hace falta.
+## Product purpose
+
+Register sales and inventory and close the daily cash session with minimal friction. Success means a new staff member can charge a customer and close the day without navigating irrelevant modules.
+
+## Brand personality
+
+Clear, responsive, and trustworthy. Functional references include Square POS for a direct checkout experience, Stripe for precise forms, and Linear for restrained hierarchy and density where needed.
 
 ## Anti-references
-No replicar el menú cargado del sistema anterior. Evitar módulos visibles que no aportan al rol actual, tablas confusas, densidad sin jerarquía, modales como flujo por defecto y decoración que compita con cobrar.
 
-## Design Principles
-1. La operación actual manda: mostrar la siguiente acción, no todas las posibilidades.
-2. Reducir memoria: etiquetas claras, acciones predecibles y estados visibles.
-3. Proteger la caja: confirmar acciones irreversibles y conservar trazabilidad.
-4. Diseñar para rotación: aprender mirando, no leyendo manuales.
-5. Mantener velocidad bajo presión: teclado, foco y feedback inmediato.
+Do not reproduce the overloaded menu from the previous system. Avoid modules irrelevant to the current role, confusing tables, density without hierarchy, modal-first workflows, and decoration that competes with completing a sale.
 
-## Accessibility & Inclusion
-Cumplir WCAG 2.2 AA como mínimo: contraste suficiente, navegación por teclado, foco visible, objetivos táctiles adecuados, mensajes no dependientes solo del color y movimiento reducido cuando el sistema lo solicite.EOF
-node /Users/alexisvt/.agents/skills/impeccable/scripts/load-context.mjs
+## Design principles
+
+1. Follow the current operation: show the next action, not every possibility.
+2. Reduce memory load through clear labels, predictable actions, and visible state.
+3. Protect the register by confirming irreversible actions and preserving traceability.
+4. Design for staff turnover: teach through the interface, not a manual.
+5. Maintain speed under pressure with keyboard support, deliberate focus, and immediate feedback.
+
+## Accessibility and inclusion
+
+Meet WCAG 2.2 AA at minimum: sufficient contrast, keyboard navigation, visible focus, adequate target sizes, messages that do not rely only on color, and reduced motion when requested by the operating system.

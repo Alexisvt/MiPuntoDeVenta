@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: mipuntodeventa
+      POSTGRES_USER: mipuntodeventa
+      POSTGRES_PASSWORD: mipuntodeventa
+    ports: ["5432:5432"]
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mipuntodeventa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: .
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/mipuntodeventa
+      DATABASE_USERNAME: mipuntodeventa
+      DATABASE_PASSWORD: mipuntodeventa
+    ports: ["8080:8080"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  postgres-data:

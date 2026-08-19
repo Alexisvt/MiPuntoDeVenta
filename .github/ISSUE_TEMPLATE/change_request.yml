@@ -1,0 +1,47 @@
+name: Change request
+description: Propose and approve work before opening a pull request.
+title: "feat(scope): "
+labels: ["enhancement", "status:needs-review"]
+body:
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight checks
+      options:
+        - label: I searched existing requests and confirmed this is not a duplicate.
+          required: true
+        - label: I understand that the change needs `status:approved` before a pull request is opened.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: Explain the current impact and who experiences it.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: Describe observable behavior and acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and exclusions
+      description: Include what must change and what remains explicitly out of scope.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and dependencies
+      description: Data, security, compatibility, operations, third parties, or N/A.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Relevant specs, ADRs, designs, screenshots, or conversations.
