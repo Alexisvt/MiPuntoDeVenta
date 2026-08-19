@@ -1,57 +1,66 @@
-# Mi punto de venta
+# MiPuntoDeVenta
 
-Punto de venta simple para un negocio pequeño en Costa Rica. El sistema prioriza abrir caja, vender, imprimir un recibo interno y cerrar el día sin módulos innecesarios.
+A focused point-of-sale system for a small business in Costa Rica. The product prioritizes opening the register, completing sales, printing internal receipts, and closing the business day without exposing unnecessary modules.
 
-> Los comprobantes del MVP son internos y no fiscales. Las facturas legales se emiten manualmente con el talonario actual.
+> MVP receipts are internal, non-fiscal documents. Legal invoices remain outside the system and are issued manually from the business's existing invoice book.
 
-## Arquitectura
+## Architecture
 
-- **Frontend:** Angular 22, desplegado en S3/CloudFront.
-- **Backend:** monolito modular Spring Boot 4.1 sobre Java 21, desplegado en ECS Fargate.
-- **Datos:** PostgreSQL local mediante Docker Compose y Amazon RDS en AWS.
-- **Entrega:** Docker, Terraform y GitHub Actions con tests y gates de seguridad.
+| Layer | Technology | Runtime |
+|---|---|---|
+| Frontend | Angular 22 | Amazon S3 and CloudFront |
+| Backend | Spring Boot 4.1 modular monolith on Java 21 | Amazon ECS Fargate |
+| Data | PostgreSQL | Docker Compose locally and Amazon RDS in AWS |
+| Delivery | Docker, Terraform, and GitHub Actions | Automated test and security gates |
 
-## Desarrollo local
+## Local development
 
-Requisitos: Node.js 24 LTS, Java 21 y Docker.
+### Prerequisites
+
+- Node.js 24 LTS
+- Java 21
+- Docker
+
+### Quick start
 
 ```bash
-# Base de datos
+# Database
 docker compose up -d postgres
 
 # Backend
 cd backend
 ./mvnw spring-boot:run
 
-# Frontend
+# Frontend (run from another terminal)
 cd frontend
 npm ci
 npm start
 ```
 
-Backend: `http://localhost:8080/actuator/health`. Frontend: `http://localhost:4200`.
+- Backend health: `http://localhost:8080/actuator/health`
+- Frontend: `http://localhost:4200`
 
-También podés levantar base de datos y backend como contenedores:
+To run the database and backend as containers:
 
 ```bash
 docker compose up --build
 ```
 
-## Calidad
+## Quality checks
 
-Cada PR ejecuta lint, tests Maven/JUnit, tests Angular, Playwright + axe, builds reproducibles, validación Terraform, CodeQL, dependency review, Gitleaks y Trivy.
+Every pull request runs linting, Maven/JUnit tests, Angular tests, Playwright with axe, reproducible builds, Terraform validation, CodeQL, dependency review, Gitleaks, and Trivy.
 
 ```bash
 cd backend && ./mvnw test
 cd frontend && npm run lint && npm run test:ci && npm run test:e2e
 ```
 
-## Despliegue AWS
+## AWS deployment
 
-Terraform define RDS PostgreSQL privado, ECS Fargate, ALB restringido a CloudFront, ECR, S3 privado, IAM, Secrets Manager y CloudWatch. Consultá [`infra/README.md`](infra/README.md) para sus entradas.
+Terraform defines private Amazon RDS for PostgreSQL, ECS Fargate, an ALB restricted to CloudFront, ECR, private S3, IAM, Secrets Manager, and CloudWatch. See [`infra/README.md`](infra/README.md) for inputs and deployment details.
 
-El workflow de CD usa GitHub OIDC. El environment `production` necesita el secreto `AWS_DEPLOY_ROLE_ARN` y las variables `AWS_REGION`, `ECR_REPOSITORY`, `ECS_TASK_FAMILY`, `ECS_SERVICE`, `ECS_CLUSTER`, `FRONTEND_BUCKET` y `CLOUDFRONT_DISTRIBUTION_ID`. Si todavía no existe esa configuración, los pushes a `main` no despliegan.
+The CD workflow uses GitHub OIDC. The `production` environment requires the `AWS_DEPLOY_ROLE_ARN` secret and these variables: `AWS_REGION`, `ECR_REPOSITORY`, `ECS_TASK_FAMILY`, `ECS_SERVICE`, `ECS_CLUSTER`, `FRONTEND_BUCKET`, and `CLOUDFRONT_DISTRIBUTION_ID`. Pushes to `main` do not deploy until this configuration exists.
 
-## SDD
+## Product specifications
 
-La fuente de verdad del MVP está en [`openspec/changes/mvp-pos-simple`](openspec/changes/mvp-pos-simple).
+The source of truth for the MVP is [`openspec/changes/mvp-pos-simple`](openspec/changes/mvp-pos-simple).

@@ -1,4 +1,4 @@
-# Tasks: MVP de punto de venta simple
+# Tasks: Focused Point-of-Sale MVP
 
 ## Review Workload Forecast
 

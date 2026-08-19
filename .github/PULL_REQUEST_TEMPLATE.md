@@ -1,152 +1,151 @@
 <!--
-Objetivo: permitir que una persona entienda el cambio, su riesgo y cómo validarlo
-sin reconstruir la historia desde commits o conversaciones externas.
+Purpose: help a reviewer understand the change, its risk, and how to validate it
+without reconstructing the story from commits or external conversations.
 
-Completá lo relevante y marcá N/A cuando una sección no aplique. No borres los
-controles de issue, tipo, pruebas, seguridad, despliegue ni rollback.
+Complete every relevant section and write N/A when a section does not apply.
+Do not remove the issue, type, testing, security, deployment, or rollback controls.
 -->
 
-## Resultado
+## Outcome
 
-<!-- En 2–4 líneas: qué cambia, para quién y por qué importa. -->
+<!-- In 2–4 lines: what changes, who benefits, and why it matters. -->
 
-## Trabajo relacionado
+## Related work
 
-Closes #<!-- issue aprobado -->
+Closes #<!-- approved issue -->
 
-| Cadena de entrega | Enlace |
+| Delivery chain | Link |
 |---|---|
-| PR anterior | N/A |
-| PR siguiente | N/A |
-| Spec / ADR / diseño | N/A |
+| Previous PR | N/A |
+| Next PR | N/A |
+| Spec / ADR / design | N/A |
 
-## Ruta de revisión
+## Review path
 
-<!-- Indicá por dónde empezar y qué archivos o decisiones merecen más atención. -->
+<!-- Explain where to start and which files or decisions deserve the most attention. -->
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
-### Fuera de alcance
+### Out of scope
 
-<!-- Evita que el review se expanda a trabajo deliberadamente posterior. -->
+<!-- Prevent the review from expanding into intentionally deferred work. -->
 
-- 
+-
 
-## Tipo de cambio
+## Change type
 
-<!-- Marcá exactamente uno. El PR debe tener el label type:* equivalente. -->
+<!-- Select exactly one. The PR must have the equivalent type:* label. -->
 
-- [ ] `type:feature` — funcionalidad nueva
-- [ ] `type:bug` — corrección
-- [ ] `type:refactor` — cambio interno sin alterar comportamiento
-- [ ] `type:docs` — documentación
-- [ ] `type:chore` — mantenimiento, plataforma o dependencias
-- [ ] `type:breaking-change` — cambio incompatible
+- [ ] `type:feature` — new functionality
+- [ ] `type:bug` — defect correction
+- [ ] `type:refactor` — internal change without altered behavior
+- [ ] `type:docs` — documentation
+- [ ] `type:chore` — maintenance, platform, or dependencies
+- [ ] `type:breaking-change` — incompatible change
 
-## Alcance técnico
+## Technical scope
 
-| Área | Cambio | Impacto |
+| Area | Change | Impact |
 |---|---|---|
 | Frontend | N/A | N/A |
 | Backend / API | N/A | N/A |
-| Datos / migraciones | N/A | N/A |
-| Infraestructura / cloud | N/A | N/A |
-| CI/CD / observabilidad | N/A | N/A |
+| Data / migrations | N/A | N/A |
+| Infrastructure / cloud | N/A | N/A |
+| CI/CD / observability | N/A | N/A |
 
-### Decisiones y contratos
+### Decisions and contracts
 
-<!-- APIs, eventos, modelos, configuración, compatibilidad o tradeoffs relevantes. -->
+<!-- Relevant APIs, events, models, configuration, compatibility, or tradeoffs. -->
 
-- 
+-
 
-## Riesgo
+## Risk
 
-**Nivel:** <!-- Bajo / Medio / Alto -->
+**Level:** <!-- Low / Medium / High -->
 
-| Riesgo | Probabilidad | Impacto | Mitigación |
+| Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
 |  |  |  |  |
 
-## Seguridad, privacidad y cumplimiento
+## Security, privacy, and compliance
 
-- [ ] Se revisaron autenticación, autorización y mínimo privilegio, o N/A.
-- [ ] No se agregaron secretos, datos personales ni información sensible al repositorio.
-- [ ] Entradas, errores, logs y dependencias se manejan de forma segura, o N/A.
-- [ ] Se documentó cualquier impacto regulatorio, fiscal o de retención de datos, o N/A.
+- [ ] Authentication, authorization, and least privilege were reviewed, or N/A.
+- [ ] No secrets, personal data, or sensitive information were added to the repository.
+- [ ] Inputs, errors, logs, and dependencies are handled securely, or N/A.
+- [ ] Any regulatory, fiscal, or data-retention impact is documented, or N/A.
 
-**Notas:** <!-- Amenazas consideradas, scanners, excepciones o N/A. -->
+**Notes:** <!-- Threats considered, scanners, exceptions, or N/A. -->
 
-## Datos y compatibilidad
+## Data and compatibility
 
-- [ ] La migración es compatible hacia atrás durante el despliegue, o N/A.
-- [ ] Existe estrategia para rollback, backfill y datos parciales, o N/A.
-- [ ] Se evaluaron contratos públicos, clientes existentes y versionado, o N/A.
+- [ ] The migration remains backward compatible during deployment, or N/A.
+- [ ] A rollback, backfill, and partial-data strategy exists, or N/A.
+- [ ] Public contracts, existing clients, and versioning were evaluated, or N/A.
 
-**Notas:**
+**Notes:**
 
-## Evidencia de calidad
+## Quality evidence
 
-| Verificación | Comando / evidencia | Resultado |
+| Verification | Command / evidence | Result |
 |---|---|---|
-| Tests unitarios |  | ⬜ |
-| Tests de integración |  | ⬜ |
-| E2E / accesibilidad |  | ⬜ |
-| Lint / análisis estático |  | ⬜ |
-| Seguridad / dependencias |  | ⬜ |
-| Infraestructura / configuración |  | ⬜ |
+| Unit tests |  | ⬜ |
+| Integration tests |  | ⬜ |
+| E2E / accessibility |  | ⬜ |
+| Lint / static analysis |  | ⬜ |
+| Security / dependencies |  | ⬜ |
+| Infrastructure / configuration |  | ⬜ |
 
-### Validación manual
+### Manual validation
 
-<!-- Pasos reproducibles, datos usados y resultado esperado. -->
+<!-- Reproducible steps, data used, and expected result. -->
 
-1. 
+1.
 
-## Experiencia de usuario
+## User experience
 
-- [ ] Estados de carga, vacío, error y éxito cubiertos, o N/A.
-- [ ] Navegación por teclado, foco, contraste y lector de pantalla revisados, o N/A.
-- [ ] Comportamiento responsive y textos de interfaz revisados, o N/A.
-- [ ] Se adjunta evidencia visual cuando cambia la UI, o N/A.
+- [ ] Loading, empty, error, and success states are covered, or N/A.
+- [ ] Keyboard navigation, focus, contrast, and screen-reader behavior were reviewed, or N/A.
+- [ ] Responsive behavior and interface copy were reviewed, or N/A.
+- [ ] Visual evidence is attached when the UI changes, or N/A.
 
-## Preparación operativa
+## Operational readiness
 
-- [ ] Logs, métricas, trazas, alertas y health checks son suficientes, o N/A.
-- [ ] Configuración, variables, permisos y secretos están documentados, o N/A.
-- [ ] Runbook, soporte y respuesta ante fallos están actualizados, o N/A.
-- [ ] El cambio tolera reintentos, despliegues parciales y fallos de dependencias, o N/A.
+- [ ] Logs, metrics, traces, alerts, and health checks are sufficient, or N/A.
+- [ ] Configuration, variables, permissions, and secrets are documented, or N/A.
+- [ ] Runbooks, support procedures, and failure response are current, or N/A.
+- [ ] The change tolerates retries, partial deployments, and dependency failures, or N/A.
 
-## Despliegue y rollback
+## Deployment and rollback
 
-**Plan de despliegue:**
+**Deployment plan:**
 
-1. 
+1.
 
-**Validación posterior:**
+**Post-deployment validation:**
 
-1. 
+1.
 
-**Señales para abortar o revertir:**
+**Abort or rollback signals:**
 
-- 
+-
 
-**Plan de rollback:**
+**Rollback plan:**
 
-1. 
+1.
 
-## Checklist final
+## Final checklist
 
-- [ ] El issue enlazado tiene `status:approved`.
-- [ ] El PR tiene exactamente un label `type:*`.
-- [ ] El alcance coincide con la spec y lo fuera de alcance está explícito.
-- [ ] Tests y documentación acompañan al comportamiento que verifican.
-- [ ] CI requerido pasa sin excepciones ocultas.
-- [ ] Commits siguen Conventional Commits y no incluyen atribución automática.
-- [ ] El tamaño es revisable o la excepción / cadena de PRs está documentada.
-- [ ] La persona revisora sabe qué validar primero.
+- [ ] The linked issue has `status:approved`.
+- [ ] The PR has exactly one `type:*` label.
+- [ ] The scope matches the spec and exclusions are explicit.
+- [ ] Tests and documentation accompany the behavior they verify.
+- [ ] Required CI passes without hidden exceptions.
+- [ ] Commits follow Conventional Commits and contain no automated attribution.
+- [ ] The change is reviewable in size, or its exception / PR chain is documented.
+- [ ] The reviewer knows what to validate first.
 
-## Notas para release
+## Release notes
 
-<!-- Cambio visible, migración, feature flag, comunicación o "Sin notas". -->
-
+<!-- User-visible change, migration, feature flag, communication, or "No release notes". -->

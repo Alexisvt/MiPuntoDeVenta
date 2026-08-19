@@ -1,48 +1,47 @@
 name: Change request
-description: Proponer y aprobar trabajo antes de abrir un pull request.
+description: Propose and approve work before opening a pull request.
 title: "feat(scope): "
 labels: ["enhancement", "status:needs-review"]
 body:
   - type: checkboxes
     id: preflight
     attributes:
-      label: Verificación previa
+      label: Preflight checks
       options:
-        - label: Busqué solicitudes existentes y esta no es un duplicado.
+        - label: I searched existing requests and confirmed this is not a duplicate.
           required: true
-        - label: Entiendo que el cambio necesita `status:approved` antes del PR.
+        - label: I understand that the change needs `status:approved` before a pull request is opened.
           required: true
   - type: textarea
     id: problem
     attributes:
-      label: Problema u oportunidad
-      description: Explicá el impacto actual y quién lo experimenta.
+      label: Problem or opportunity
+      description: Explain the current impact and who experiences it.
     validations:
       required: true
   - type: textarea
     id: outcome
     attributes:
-      label: Resultado esperado
-      description: Describí comportamiento observable y criterios de aceptación.
+      label: Expected outcome
+      description: Describe observable behavior and acceptance criteria.
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
-      label: Alcance y exclusiones
-      description: Incluí lo que debe cambiar y lo que queda explícitamente afuera.
+      label: Scope and exclusions
+      description: Include what must change and what remains explicitly out of scope.
     validations:
       required: true
   - type: textarea
     id: risks
     attributes:
-      label: Riesgos y dependencias
-      description: Datos, seguridad, compatibilidad, operación, terceros o N/A.
+      label: Risks and dependencies
+      description: Data, security, compatibility, operations, third parties, or N/A.
     validations:
       required: true
   - type: textarea
     id: references
     attributes:
-      label: Referencias
-      description: Specs, ADRs, diseños, capturas o conversaciones relevantes.
-
+      label: References
+      description: Relevant specs, ADRs, designs, screenshots, or conversations.
