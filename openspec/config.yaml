@@ -1,0 +1,25 @@
+# SDD configuration for MiPuntoDeVenta
+schema: spec-driven
+
+context: |
+  Tech stack: not initialized
+  Architecture: pending SDD design
+  Testing: no runner detected
+  Style: no project conventions detected
+
+strict_tdd: false
+
+testing:
+  test_runner: null
+  unit: false
+  integration: false
+  e2e: false
+  coverage: false
+
+rules:
+  specs:
+    - Use Given/When/Then format and RFC 2119 keywords
+  design:
+    - Document architecture decisions and rationale
+  tasks:
+    - Group work by phase and keep tasks session-sized
