@@ -9,7 +9,7 @@ Deploy a modular monolith as one Spring Boot 4.1 service. Angular 22 consumes a 
 | Decision | Choice | Rationale |
 |---|---|---|
 | Application shape | Modular monolith | One business and an MVP do not justify microservices; module boundaries preserve a future extraction path. |
-| Backend | Spring Boot 4.1, Java 21, REST | Enterprise ecosystem, mature testing, and strong security, observability, and JPA integration. |
+| Backend | Spring Boot 4.1, Java 25, REST | Current LTS baseline, enterprise ecosystem, mature testing, and strong security, observability, and JPA integration. |
 | Frontend | Angular 22 organized by feature | Consistent enterprise UI, strict typing, and robust forms. Impeccable guides every visual workflow. |
 | Data | PostgreSQL on RDS | ACID transactions for stock, sales, and cash with managed operations. |
 | Infrastructure | ECS Fargate and ALB | Reproducible container deployment without managing hosts. |

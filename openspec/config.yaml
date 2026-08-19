@@ -1,7 +1,7 @@
 schema: spec-driven
 
 context: |
-  Stack: Angular 22 frontend, Spring Boot 4.1 Java API, PostgreSQL on Amazon RDS
+  Stack: Angular 22 frontend, Spring Boot 4.1 Java 25 API, PostgreSQL on Amazon RDS
   Architecture: modular monolith with REST API; Angular static site served via S3/CloudFront
   Deployment: Spring Boot container on ECS Fargate behind an ALB
   Testing: Maven/JUnit for backend; Angular test runner and Playwright for frontend

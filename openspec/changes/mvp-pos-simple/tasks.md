@@ -28,7 +28,7 @@ Chain strategy: feature-branch-chain
 
 - [x] 1.1 Confirm Costa Rica, internal non-fiscal receipt, payments, exclusions and Epson TM-T20II/3nstar.
 - [x] 1.2 Bootstrap Angular 22 in `frontend/` with strict TypeScript, tests, lint and accessibility baseline.
-- [x] 1.3 Bootstrap Spring Boot 4.1 in `backend/` with Maven, Java 21, actuator, validation and JUnit.
+- [x] 1.3 Bootstrap Spring Boot 4.1 in `backend/` with Maven, Java 25, actuator, validation and JUnit.
 - [x] 1.4 Create modular package boundaries for access, inventory, sales, cash and printing.
 - [x] 1.5 Add PostgreSQL/Flyway configuration, a local profile and first schema migration.
 - [x] 1.6 Define AWS contracts in `infra/`: VPC inputs, RDS, ECS task, ALB, S3/CloudFront, IAM and secrets placeholders.

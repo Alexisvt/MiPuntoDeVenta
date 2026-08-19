@@ -9,7 +9,7 @@ A focused point-of-sale system for a small business in Costa Rica. The product p
 | Layer | Technology | Runtime |
 |---|---|---|
 | Frontend | Angular 22 | Amazon S3 and CloudFront |
-| Backend | Spring Boot 4.1 modular monolith on Java 21 | Amazon ECS Fargate |
+| Backend | Spring Boot 4.1 modular monolith on Java 25 | Amazon ECS Fargate |
 | Data | PostgreSQL | Docker Compose locally and Amazon RDS in AWS |
 | Delivery | Docker, Terraform, and GitHub Actions | Automated test and security gates |
 
@@ -18,7 +18,7 @@ A focused point-of-sale system for a small business in Costa Rica. The product p
 ### Prerequisites
 
 - Node.js 24 LTS
-- Java 21
+- Java 25 LTS
 - Docker
 
 ### Quick start
