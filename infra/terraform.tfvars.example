@@ -1,0 +1,6 @@
+aws_region        = "us-east-1"
+environment       = "dev"
+vpc_id            = "vpc-00000000000000000"
+public_subnet_ids  = ["subnet-public-a", "subnet-public-b"]
+private_subnet_ids = ["subnet-private-a", "subnet-private-b"]
+backend_image      = "000000000000.dkr.ecr.us-east-1.amazonaws.com/mipuntodeventa-dev-backend@sha256:replace-me"
