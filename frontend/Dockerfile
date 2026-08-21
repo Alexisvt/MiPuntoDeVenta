@@ -5,5 +5,5 @@ RUN npm ci
 COPY . .
 RUN npm run build
 FROM nginx:1.29-alpine
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+COPY --from=build /app/out /usr/share/nginx/html
 EXPOSE 80
