@@ -107,9 +107,10 @@ describe('frontend platform policy', () => {
   });
 
   it('keeps feature boundaries without Angular or Route Handlers', () => {
-    expect(
-      evaluateRepositoryStructure(repositoryPaths(new URL('../', import.meta.url))),
-    ).toEqual([]);
+    const paths = repositoryPaths(new URL('../', import.meta.url));
+
+    expect(evaluateRepositoryStructure(paths)).toEqual([]);
+    expect(paths).toContain('lib/printing/receipt-printer.ts');
   });
 
   it('reports missing boundaries and forbidden framework files', () => {
