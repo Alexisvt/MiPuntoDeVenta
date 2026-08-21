@@ -57,10 +57,11 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-      - name: Publish Angular application
+      - name: Publish Next.js static application
         working-directory: frontend
         run: |
           npm ci
           npm run build
-          aws s3 sync dist/frontend/browser "s3://${{ vars.FRONTEND_BUCKET }}" --delete
+          aws s3 sync out "s3://${{ vars.FRONTEND_BUCKET }}" --delete --exclude '_next/static/*' --cache-control 'no-cache'
+          aws s3 sync out/_next/static "s3://${{ vars.FRONTEND_BUCKET }}/_next/static" --delete --cache-control 'public,max-age=31536000,immutable'
           aws cloudfront create-invalidation --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" --paths '/*'
