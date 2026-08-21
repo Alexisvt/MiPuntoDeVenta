@@ -2,7 +2,7 @@
 
 ## Technical approach
 
-Deploy a modular monolith as one Spring Boot 4.1 service. Angular 22 consumes a versioned REST API. PostgreSQL runs on Amazon RDS; the backend is packaged as a container for ECS Fargate behind an ALB. The frontend is published as a static site through S3 and CloudFront.
+Deploy a modular monolith as one Spring Boot 4.1 service. A React 19.2 and Next.js 16.3 App Router client consumes the versioned REST API through TanStack Query v5. PostgreSQL runs on Amazon RDS; the backend is packaged for ECS Fargate behind an ALB. The frontend is a static export published through S3 and CloudFront.
 
 ## Architecture decisions
 
@@ -10,7 +10,7 @@ Deploy a modular monolith as one Spring Boot 4.1 service. Angular 22 consumes a 
 |---|---|---|
 | Application shape | Modular monolith | One business and an MVP do not justify microservices; module boundaries preserve a future extraction path. |
 | Backend | Spring Boot 4.1, Java 25, REST | Current LTS baseline, enterprise ecosystem, mature testing, and strong security, observability, and JPA integration. |
-| Frontend | Angular 22 organized by feature | Consistent enterprise UI, strict typing, and robust forms. Impeccable guides every visual workflow. |
+| Frontend | React 19.2 and Next.js 16.3 organized by feature | Static delivery, strict typing and selective server-state synchronization. Impeccable guides every visual workflow. |
 | Data | PostgreSQL on RDS | ACID transactions for stock, sales, and cash with managed operations. |
 | Infrastructure | ECS Fargate and ALB | Reproducible container deployment without managing hosts. |
 | Receipt | Internal non-fiscal document | The MVP does not integrate with Hacienda; legal invoices are issued manually outside the system. |
@@ -19,7 +19,7 @@ Deploy a modular monolith as one Spring Boot 4.1 service. Angular 22 consumes a 
 ## Module boundaries
 
 ```text
-frontend/ Angular
+frontend/ Next.js static App Router
    ↓ REST /api/v1
 backend/ Spring Boot
 ├── access       users, roles, authentication
@@ -42,7 +42,7 @@ A sale is committed only when its cash session, actor, lines, payment, and stock
 | `backend/src/main/java/.../{module}/application/` | Use cases and transactions |
 | `backend/src/main/java/.../{module}/infrastructure/` | JPA, REST adapters, and external services |
 | `backend/src/test/java/` | Unit and integration tests |
-| `frontend/src/app/features/` | Angular features organized by business module |
+| `frontend/features/` | Client features organized by business module |
 | `infra/` | ECS, RDS, network, IAM, and deployment definitions |
 
 ## Frontend direction
@@ -57,12 +57,12 @@ End-user-facing interface labels and messages are localized in Spanish for Costa
 |---|---|
 | JUnit | Domain rules: permissions, stock, totals, and cash transitions |
 | Spring integration | JPA transactions, REST authorization, and receipt status |
-| Angular | Feature and component behavior plus accessibility states |
+| Vitest and React Testing Library | Feature, query and component behavior plus accessibility states |
 | Playwright and axe | Opening → sale → receipt → close, keyboard behavior, and WCAG checks |
 
 ## Delivery
 
-The first PR creates the Angular and Spring foundation, test runners, module skeleton, and AWS infrastructure contracts. Subsequent PRs target the immediately preceding feature branch.
+The foundation chain creates the Next.js static client, Spring service, test runners, module skeleton and AWS contracts. `migrate-frontend-to-nextjs` is a prerequisite for access and inventory; subsequent PRs target the immediately preceding feature branch. The frontend ECS runtime remains deferred until a separately approved runtime-only requirement exists.
 
 ## Open questions
 

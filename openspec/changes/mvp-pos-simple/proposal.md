@@ -44,7 +44,7 @@ Build a modular monolith with navigation limited to the workflows the business a
 | Area | Impact | Description |
 |---|---|---|
 | `openspec/changes/mvp-pos-simple/specs/` | New | Specifications for the five capabilities. |
-| Application | New | Angular frontend and Spring Boot backend implemented in reviewable slices. |
+| Application | New | Next.js static frontend and Spring Boot backend implemented in reviewable slices. |
 | POS printer | External dependency | Epson TM-T20II and 3nstar cash-drawer behavior require on-site validation. |
 
 ## Risks

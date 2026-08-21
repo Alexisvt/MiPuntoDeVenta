@@ -8,7 +8,7 @@ A focused point-of-sale system for a small business in Costa Rica. The product p
 
 | Layer | Technology | Runtime |
 |---|---|---|
-| Frontend | Angular 22 | Amazon S3 and CloudFront |
+| Frontend | React 19.2, Next.js 16.3 App Router, TanStack Query v5 | Static export on Amazon S3 and CloudFront |
 | Backend | Spring Boot 4.1 modular monolith on Java 25 | Amazon ECS Fargate |
 | Data | PostgreSQL | Docker Compose locally and Amazon RDS in AWS |
 | Delivery | Docker, Terraform, and GitHub Actions | Automated test and security gates |
@@ -48,16 +48,16 @@ docker compose up --build
 
 ## Quality checks
 
-Every pull request runs linting, Maven/JUnit tests, Angular tests, Playwright with axe, reproducible builds, Terraform validation, CodeQL, dependency review, Gitleaks, and Trivy.
+Every pull request runs linting, type checks, Maven/JUnit tests, Vitest component tests, Playwright with axe, reproducible static exports, Terraform validation, CodeQL for Java and JavaScript/TypeScript, dependency review, Gitleaks, and Trivy.
 
 ```bash
 cd backend && ./mvnw test
-cd frontend && npm run lint && npm run test:ci && npm run test:e2e
+cd frontend && npm run lint && npm run typecheck && npm run test:ci && npm run test:e2e
 ```
 
 ## AWS deployment
 
-Terraform defines private Amazon RDS for PostgreSQL, ECS Fargate, an ALB restricted to CloudFront, ECR, private S3, IAM, Secrets Manager, and CloudWatch. See [`infra/README.md`](infra/README.md) for inputs and deployment details.
+Terraform defines private Amazon RDS for PostgreSQL, backend ECS Fargate, an ALB restricted to CloudFront, ECR, private S3 for the Next.js static export, IAM, Secrets Manager, and CloudWatch. A frontend ECS runtime is deferred. See [`infra/README.md`](infra/README.md) for inputs and deployment details.
 
 The CD workflow uses GitHub OIDC. The `production` environment requires the `AWS_DEPLOY_ROLE_ARN` secret and these variables: `AWS_REGION`, `ECR_REPOSITORY`, `ECS_TASK_FAMILY`, `ECS_SERVICE`, `ECS_CLUSTER`, `FRONTEND_BUCKET`, and `CLOUDFRONT_DISTRIBUTION_ID`. Pushes to `main` do not deploy until this configuration exists.
 
