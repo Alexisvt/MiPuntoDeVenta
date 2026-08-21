@@ -50,4 +50,4 @@ Polluted child diffs MUST be retargeted or rebased. Access/inventory waits for t
 - [x] 3.2 GREEN: update `infra/main.tf` routing/cache, `frontend/Dockerfile`, and CD to publish `frontend/out/`.
 - [x] 3.3 REFACTOR: update CI/security workflows for Next/Vitest/Playwright and JavaScript analysis while retaining all existing gates.
 - [x] 3.4 Reconcile README/frontend/infra docs, `openspec/config.yaml`, and MVP design/tasks; remove Angular authority and defer ECS Next runtime.
-- [ ] 3.5 Verify route tests, Terraform/workflow syntax, lint/tests, and CI production export; record S3/CloudFront rollback and tracker integration evidence.
+- [x] 3.5 Verify route tests, Terraform/workflow syntax, lint/tests, and CI production export; record S3/CloudFront rollback and tracker integration evidence.
