@@ -30,11 +30,11 @@ Polluted child diffs MUST be retargeted or rebased. Access/inventory waits for t
 
 ## Phase 1: PR 1, Tooling and Static Scaffold
 
-- [ ] 1.1 Record the `frontend/angular.json` analytics diff as Angular-only telemetry; intentionally retire it in PR notes.
-- [ ] 1.2 RED: add frontend policy tests for the Approved manifest and Static-only hosting scenarios, including unsupported Node failure.
-- [ ] 1.3 GREEN: replace manifests/configs with React 19.2, Next.js 16.3, TanStack Query v5, Node 24, strict TS/ESLint/Vitest, and static export.
-- [ ] 1.4 REFACTOR: create `frontend/app`, `features`, and `lib`; remove Angular-only source/config; keep root `Dockerfile` and `docker-compose.yml` unchanged.
-- [ ] 1.5 Verify policy/lint and CI `out/`; document rollback and lockfile review scope.
+- [x] 1.1 Record the `frontend/angular.json` analytics diff as Angular-only telemetry; intentionally retire it in PR notes.
+- [x] 1.2 RED: add frontend policy tests for the Approved manifest and Static-only hosting scenarios, including unsupported Node failure.
+- [x] 1.3 GREEN: replace manifests/configs with React 19.2, Next.js 16.3, TanStack Query v5, Node 24, strict TS/ESLint/Vitest, and static export.
+- [x] 1.4 REFACTOR: create `frontend/app`, `features`, and `lib`; remove Angular-only source/config; keep root `Dockerfile` and `docker-compose.yml` unchanged.
+- [x] 1.5 Verify policy/lint and CI `out/`; document rollback and lockfile review scope.
 
 ## Phase 2: PR 2, Foundation UI and State
 

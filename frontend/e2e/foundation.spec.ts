@@ -1,14 +1,10 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-test('shows the foundation and has no detectable accessibility violations', async ({ page }) => {
-  await page.route('**/api/v1/health', (route) =>
-    route.fulfill({ json: { status: 'UP' } }),
-  );
+test('shows the static scaffold and has no detectable accessibility violations', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'La operación diaria, sin el ruido.' })).toBeVisible();
-  await expect(page.getByText('Sistema disponible')).toBeVisible();
-  await expect(page.getByText('Recibos internos no fiscales')).toBeVisible();
+  await expect(page.getByRole('main', { name: 'Mi punto de venta' })).toBeVisible();
+  await expect(page.getByText('Nueva base web en preparación.')).toBeVisible();
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 });
