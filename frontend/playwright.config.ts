@@ -5,7 +5,7 @@ export default defineConfig({
   use: { baseURL: 'http://127.0.0.1:4200', trace: 'on-first-retry' },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'npm start -- --host 127.0.0.1',
+    command: 'npm start',
     url: 'http://127.0.0.1:4200',
     reuseExistingServer: !process.env['CI'],
   },

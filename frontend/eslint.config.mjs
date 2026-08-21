@@ -1,25 +1,16 @@
-import eslint from '@eslint/js';
-import angular from 'angular-eslint';
-import tseslint from 'typescript-eslint';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypeScript from 'eslint-config-next/typescript';
 
-export default tseslint.config(
-  {
-    files: ['**/*.ts'],
-    extends: [
-      eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...angular.configs.tsRecommended,
-    ],
-    processor: angular.processInlineTemplates,
-  },
-  {
-    files: ['**/*.html'],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
-  },
-  {
-    ignores: ['dist/**', 'coverage/**', 'playwright-report/**', 'test-results/**'],
-  },
-);
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypeScript,
+  globalIgnores([
+    '.angular/**',
+    '.next/**',
+    'coverage/**',
+    'out/**',
+    'playwright-report/**',
+    'test-results/**',
+  ]),
+]);
