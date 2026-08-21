@@ -38,11 +38,11 @@ Polluted child diffs MUST be retargeted or rebased. Access/inventory waits for t
 
 ## Phase 2: PR 2, Foundation UI and State
 
-- [ ] 2.1 Before UI code, create `DESIGN.md` from `PRODUCT.md` and Impeccable decisions: tokens, focus, spacing, Spanish copy, anti-patterns.
-- [ ] 2.2 RED: add RTL/user-event tests for Available service, Unavailable service, Rejected operation, Remote refresh, Optimistic failure, and Transient interaction scenarios using a fresh no-retry QueryClient.
-- [ ] 2.3 GREEN: implement providers, typed API/errors, health query keys, and Spanish loading/error/retry UI with Spring authoritative.
-- [ ] 2.4 REFACTOR: isolate feature boundaries and local UI state; add the browser-only `ReceiptPrinter` port without hardware behavior or Route Handler BFF.
-- [ ] 2.5 RED -> GREEN -> REFACTOR: migrate E2E for keyboard, focus, reduced motion, Spanish states, and zero configured axe violations; verify unit/E2E/lint.
+- [x] 2.1 Before UI code, create `DESIGN.md` from `PRODUCT.md` and Impeccable decisions: tokens, focus, spacing, Spanish copy, anti-patterns.
+- [x] 2.2 RED: add RTL/user-event tests for Available service, Unavailable service, Rejected operation, Remote refresh, Optimistic failure, and Transient interaction scenarios using a fresh no-retry QueryClient.
+- [x] 2.3 GREEN: implement providers, typed API/errors, health query keys, and Spanish loading/error/retry UI with Spring authoritative.
+- [x] 2.4 REFACTOR: isolate feature boundaries and local UI state; add the browser-only `ReceiptPrinter` port without hardware behavior or Route Handler BFF.
+- [x] 2.5 RED -> GREEN -> REFACTOR: migrate E2E for keyboard, focus, reduced motion, Spanish states, and zero configured axe violations; verify unit/E2E/lint.
 
 ## Phase 3: PR 3, Delivery and Reconciliation
 
