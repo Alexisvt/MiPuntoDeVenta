@@ -24,7 +24,8 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '25', cache: maven }
       - uses: github/codeql-action/init@v3
-        with: { languages: java }
+        with:
+          languages: java,javascript-typescript
       - uses: github/codeql-action/autobuild@v3
       - uses: github/codeql-action/analyze@v3
   filesystem-scan:
