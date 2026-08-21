@@ -46,8 +46,8 @@ Polluted child diffs MUST be retargeted or rebased. Access/inventory waits for t
 
 ## Phase 3: PR 3, Delivery and Reconciliation
 
-- [ ] 3.1 RED: add route-function tests for root, nested, asset, API authorization, and missing API scenarios.
-- [ ] 3.2 GREEN: update `infra/main.tf` routing/cache, `frontend/Dockerfile`, and CD to publish `frontend/out/`.
-- [ ] 3.3 REFACTOR: update CI/security workflows for Next/Vitest/Playwright and JavaScript analysis while retaining all existing gates.
-- [ ] 3.4 Reconcile README/frontend/infra docs, `openspec/config.yaml`, and MVP design/tasks; remove Angular authority and defer ECS Next runtime.
+- [x] 3.1 RED: add route-function tests for root, nested, asset, API authorization, and missing API scenarios.
+- [x] 3.2 GREEN: update `infra/main.tf` routing/cache, `frontend/Dockerfile`, and CD to publish `frontend/out/`.
+- [x] 3.3 REFACTOR: update CI/security workflows for Next/Vitest/Playwright and JavaScript analysis while retaining all existing gates.
+- [x] 3.4 Reconcile README/frontend/infra docs, `openspec/config.yaml`, and MVP design/tasks; remove Angular authority and defer ECS Next runtime.
 - [ ] 3.5 Verify route tests, Terraform/workflow syntax, lint/tests, and CI production export; record S3/CloudFront rollback and tracker integration evidence.
